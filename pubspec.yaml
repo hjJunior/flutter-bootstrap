@@ -1,0 +1,26 @@
+name: flutter_bootstrap
+description: A wrapper all basics dependencies to help your boot your development using Flutter
+version: 0.0.1
+author:
+homepage:
+
+environment:
+  sdk: ">=2.0.0-dev.68.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_secure_storage: ^3.1.2
+  http: ^0.12.0+1
+  sqflite: ^0.12.2+1
+  path_provider: ^0.4.1
+  jaguar_orm: ^2.2.0
+  jaguar_query_sqflite: ^2.2.0
+
+dev_dependencies:
+  mockito: ^4.0.0
+  jaguar_orm_gen: ^2.2.0
+  build_runner: ^0.10.0
+  flutter_test:
+    sdk: flutter
+flutter:
