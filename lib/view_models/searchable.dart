@@ -1,7 +1,8 @@
 import 'package:rxdart/rxdart.dart';
 import '../models/searchable.dart';
+import 'package:flutter_simple_dependency_injection/injector.dart';
 
-abstract class SearchableViewModel<T extends BeanSearchable, M extends ModelSearchable> {
+abstract class SearchableViewModel<B extends BeanSearchable, M extends ModelSearchable> {
   SearchableViewModel(this.bean, {bool autoLoad=true}) {
     if (autoLoad) _firstQuery();
     _searchController.stream.listen((search) async {
@@ -9,7 +10,8 @@ abstract class SearchableViewModel<T extends BeanSearchable, M extends ModelSear
     });
   }
 
-  final T bean;
+  final B bean;
+  final Injector injector = Injector.getInjector();
   final _searchController = PublishSubject<String>();
   final _resultsController = BehaviorSubject<List<M>>();
   Stream<List<M>> get resultList => _resultsController;

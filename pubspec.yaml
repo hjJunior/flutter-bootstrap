@@ -17,6 +17,7 @@ dependencies:
   path_provider: ^0.4.1
   jaguar_orm: ^2.2.0
   jaguar_query_sqflite: ^2.2.0
+  flutter_simple_dependency_injection: ^1.0.0
 
 dev_dependencies:
   mockito: ^4.0.0
