@@ -5,8 +5,8 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import '../models/restify.dart';
 import '../consts.dart';
 
-class ResourceService<T extends ModelRestify> {
-  ResourceService(this.modelInstance);
+class ApiService<T extends ModelRestify> {
+  ApiService(this.modelInstance);
 
   static Injector _injector = Injector.getInjector();
   final T modelInstance;
@@ -19,7 +19,7 @@ class ResourceService<T extends ModelRestify> {
   """;
 
   Future<String> get _userToken async =>
-      "Bearer ${await _secureStorage.read(key: kSecureStorageUserToken)}";
+    "Bearer ${await _secureStorage.read(key: kSecureStorageUserToken)}";
 
   Future<List<Map<String, dynamic>>> fetchAll() async {
     final httpResponse = await _client.get(
