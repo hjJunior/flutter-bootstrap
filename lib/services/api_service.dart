@@ -13,10 +13,7 @@ class ApiService<T extends ModelRestify> {
   final Client _client = _injector.get<Client>();
   final FlutterSecureStorage _secureStorage =_injector.get<FlutterSecureStorage>();
 
-  Future<String> get _fullUrl async => """
-    ${await _secureStorage.read(key: kSecureStorageUserToken)}
-    ${modelInstance.restifyResourceUrl}
-  """;
+  Future<String> get _fullUrl async => """${await _secureStorage.read(key: kBaseUrl)}${modelInstance.restifyResourceUrl}""";
 
   Future<String> get _userToken async =>
     "Bearer ${await _secureStorage.read(key: kSecureStorageUserToken)}";
@@ -25,10 +22,10 @@ class ApiService<T extends ModelRestify> {
     final httpResponse = await _client.get(
       await _fullUrl,
       headers: {"Authorization": await _userToken}
-    );
+    );	
     final parsedJson = json.decode(httpResponse.body);
 
-    return (parsedJson as List).cast<Map<String, dynamic>>();
+    return (parsedJson as List).cast<Map<String, dynamic>>().toList();
   }
 
   Future<Map<String, dynamic>> fetch(int id) async {

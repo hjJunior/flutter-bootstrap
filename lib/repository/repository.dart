@@ -19,7 +19,7 @@ abstract class Repository<
     List<M> list = (await (_bean as BeanSearchable).fetchSearch(search)).cast<M>();
     if ((list == null || list.length == 0) && search.length == 0) {
       final fetchData = await (_resource as ApiService).fetchAll();
-      list = fetchData.map(mapItem);
+      list = fetchData.map(mapItem).toList();
       await (_bean as BeanSearchable).insertMany(list);
     }
     return list;
