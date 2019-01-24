@@ -1,17 +1,15 @@
 import 'package:http/http.dart' show Client;
 import 'dart:convert';
-import 'package:flutter_simple_dependency_injection/injector.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import '../models/restify.dart';
 import '../consts.dart';
 
 class ApiService<T extends ModelRestify> {
-  ApiService(this.modelInstance);
+  ApiService(this.modelInstance, this._client, this._secureStorage);
 
-  static Injector _injector = Injector.getInjector();
   final T modelInstance;
-  final Client _client = _injector.get<Client>();
-  final FlutterSecureStorage _secureStorage =_injector.get<FlutterSecureStorage>();
+  final Client _client;
+  final FlutterSecureStorage _secureStorage;
 
   Future<String> get _fullUrl async => """${await _secureStorage.read(key: kBaseUrl)}${modelInstance.restifyResourceUrl}""";
 

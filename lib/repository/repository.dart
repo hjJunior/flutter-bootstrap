@@ -1,5 +1,3 @@
-import 'package:flutter_simple_dependency_injection/injector.dart';
-import 'package:jaguar_query/jaguar_query.dart';
 import '../models/searchable.dart';
 import '../models/restify.dart';
 import '../services/api_service.dart';
@@ -11,9 +9,10 @@ abstract class Repository<
 > {
   M mapItem(Map<String, dynamic> json);
 
-  static Injector _injector = Injector.getInjector();
-  final B _bean = _injector.get<B>();
-  final R _resource = _injector.get<R>();
+  Repository(this._bean, this._resource);
+
+  final B _bean;
+  final R _resource;
 
   Future<List<M>> fetchAll({String search=""}) async {
     List<M> list = (await (_bean as BeanSearchable).fetchSearch(search)).cast<M>();
