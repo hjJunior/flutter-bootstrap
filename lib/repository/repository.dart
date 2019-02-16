@@ -19,17 +19,22 @@ abstract class Repository<
     if ((list == null || list.length == 0) && search.length == 0) {
       final fetchData = await (_resource as ApiService).fetchAll();
       list = fetchData.map(mapItem).toList();
-      await (_bean as BeanSearchable).insertMany(list);
+      for (final item in list) {
+        final id = await (_bean as BeanSearchable).insert(item);
+        item.id = id;
+      }
     }
     return list;
   }
 
   Future<M> fetch(int id) async {
-    M model = await (_bean as BeanSearchable).find(id);
+    M model = await _bean.find(id);
+
     if (model == null) {
-      Map<String, dynamic> fetchData = await (_resource as ApiService).fetch(id);
+      Map<String, dynamic> fetchData = await _resource.fetch(id);
       model = mapItem(fetchData);
-      await (_bean as BeanSearchable).insertMany([model]);
+      await _bean.insert(model);
+      return model;
     }
     return model;
   }
